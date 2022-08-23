@@ -12,7 +12,7 @@ const MainWeather = () => {
   const { description, icon } = mainWeather.weather[0];
 
   const date = mainWeather.dt_txt
-    ? getParsedDate(new Date(mainWeather.dt_txt))
+    ? getParsedDate(new Date(mainWeather.dt_txt.replace(/-/g, '/')))
     : getParsedDate();
 
   return (

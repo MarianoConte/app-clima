@@ -9,13 +9,24 @@ const WeatherForeCast = () => {
   );
 
   return (
-    <section className='bg-sky-100 mt-5 p-2 rounded-md'>
+    <section className='bg-sky-100 mt-5 rounded-md'>
       {loadingForecast ? (
         <Spinner />
       ) : (
-        weatherForecast.map((weather) => (
-          <Weather weather={weather} key={weather.dt} />
-        ))
+        <>
+          <div
+            className={`grid grid-cols-5 w-full p-2 text-2xl font-bold bg-slate-300 rounded`}
+          >
+            <p className='text-center'>📅</p>
+            <p className='text-center'>💧</p>
+            <p className='text-center'>🌦️</p>
+            <p className='text-center'>🌡️</p>
+            <p className='text-center'>❄️</p>
+          </div>
+          {weatherForecast.map((weather) => (
+            <Weather weather={weather} key={weather.dt} />
+          ))}
+        </>
       )}
     </section>
   );
