@@ -1,17 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { capitalizeFirstLetter, getParsedDate } from '../utils';
+import Spinner from './Spinner';
 
 const MainWeather = () => {
-  const { mainWeather } = useSelector((state) => state.weather);
+  const { loadingWeather, mainWeather } = useSelector((state) => state.weather);
 
-  //Usar loading true, loading false, etc
-  if (!Object.keys(mainWeather).length) return <div>Cargando...</div>;
+  if (loadingWeather) return <Spinner />;
 
   const { feels_like, temp, temp_min, temp_max, humidity } = mainWeather.main;
   const { description, icon } = mainWeather.weather[0];
-
-  console.log(mainWeather);
 
   const date = mainWeather.dt_txt
     ? getParsedDate(new Date(mainWeather.dt_txt))
@@ -31,7 +29,7 @@ const MainWeather = () => {
         </p>
       </div>
 
-      <div className='text-lg'>
+      <div className='text-lg text-right'>
         <p>
           {Math.round(temp_max)}° / {Math.round(temp_min)}°
         </p>

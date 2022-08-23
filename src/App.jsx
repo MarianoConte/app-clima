@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getForecast, getLocalCity, getWeather } from './actions/weatherAction';
+import Error from './components/Error';
 import Form from './components/Form';
 import Header from './components/Header';
 import MainWeather from './components/MainWeather';
@@ -10,7 +11,7 @@ function App() {
   const dispatch = useDispatch();
 
   const { weather } = useSelector((state) => state);
-  const { localCity } = weather;
+  const { localCity, error } = weather;
 
   useEffect(() => {
     dispatch(getLocalCity());
@@ -28,6 +29,7 @@ function App() {
       <main className='p-5 md:w-1/2 md:m-auto'>
         <Form />
         <MainWeather />
+        {error && <Error error={error} />}
         <WeatherForeCast />
       </main>
     </div>

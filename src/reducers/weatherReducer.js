@@ -1,8 +1,11 @@
 import {
+  FORECAST_REQUESTED,
   FORECAST_SUCCEEDED,
+  LOCAL_CITY_REQUESTED,
   LOCAL_CITY_SUCCEEDED,
   SET_ERROR,
   SET_MAIN_WEATHER,
+  WEATHER_REQUESTED,
   WEATHER_SUCCEEDED,
 } from '../actions/types';
 
@@ -11,7 +14,8 @@ const initialState = {
   mainWeather: {},
   weatherForecast: [],
   error: '',
-  loading: false,
+  loadingWeather: true,
+  loadingForecast: true,
 };
 
 export default function (state = initialState, action) {
@@ -27,19 +31,33 @@ export default function (state = initialState, action) {
       return {
         ...state,
         mainWeather: action.payload,
+        loadingWeather: false,
         error: '',
       };
     case FORECAST_SUCCEEDED:
       return {
         ...state,
         weatherForecast: action.payload,
+        loadingForecast: false,
         error: '',
       };
     case SET_ERROR:
       return {
         ...state,
+        loading: false,
         error: action.payload,
       };
+    case FORECAST_REQUESTED:
+      return {
+        ...state,
+        loadingForecast: true,
+      };
+    case WEATHER_REQUESTED:
+      return {
+        ...state,
+        loadingWeather: true,
+      };
+
     default:
       return state;
   }

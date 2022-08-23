@@ -21,7 +21,7 @@ function* getLocalCity() {
   } catch (error) {
     yield put({
       type: SET_ERROR,
-      payload: { error: error.message },
+      payload: 'Ocurrió un error al solicitar su ubicación',
     });
   }
 }
@@ -29,11 +29,6 @@ function* getLocalCity() {
 function* getWeather(action) {
   const { lat, lon } = action.payload;
   try {
-    console.log(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${
-        import.meta.env.VITE_WEATHER_API_KEY
-      }`
-    );
     const { data } = yield call(
       axios.get,
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${
@@ -47,7 +42,7 @@ function* getWeather(action) {
   } catch (error) {
     yield put({
       type: SET_ERROR,
-      payload: { error: error.message },
+      payload: 'Ocurrió un error al solicitar el clima actual de esa ciudad',
     });
   }
 }
@@ -73,7 +68,7 @@ function* getForecast(action) {
   } catch (error) {
     yield put({
       type: SET_ERROR,
-      payload: { error: error.message },
+      payload: 'Ocurrió un error al solicitar el pronóstico del clima',
     });
   }
 }
