@@ -2,6 +2,7 @@ import {
   FORECAST_SUCCEEDED,
   LOCAL_CITY_SUCCEEDED,
   SET_ERROR,
+  SET_MAIN_WEATHER,
   WEATHER_SUCCEEDED,
 } from '../actions/types';
 
@@ -21,6 +22,7 @@ export default function (state = initialState, action) {
         localCity: action.payload,
         error: '',
       };
+    case SET_MAIN_WEATHER:
     case WEATHER_SUCCEEDED:
       return {
         ...state,

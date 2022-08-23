@@ -1,17 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { capitalizeFirstLetter, getFormattedDate } from '../utils';
+import { capitalizeFirstLetter, getParsedDate } from '../utils';
 
 const MainWeather = () => {
-  const { weather } = useSelector((state) => state);
+  const { mainWeather } = useSelector((state) => state.weather);
 
   //Usar loading true, loading false, etc
-  if (!Object.keys(weather.mainWeather).length) return <div>Cargando...</div>;
+  if (!Object.keys(mainWeather).length) return <div>Cargando...</div>;
 
-  const { feels_like, temp, temp_min, temp_max, humidity } =
-    weather.mainWeather.main;
-  const { description, icon } = weather.mainWeather.weather[0];
-  const currentDate = getFormattedDate();
+  const { feels_like, temp, temp_min, temp_max, humidity } = mainWeather.main;
+  const { description, icon } = mainWeather.weather[0];
+
+  console.log(mainWeather);
+
+  const date = mainWeather.dt_txt
+    ? getParsedDate(new Date(mainWeather.dt_txt))
+    : getParsedDate();
 
   return (
     <section className='flex justify-between align-middle'>
@@ -32,7 +36,7 @@ const MainWeather = () => {
           {Math.round(temp_max)}° / {Math.round(temp_min)}°
         </p>
         <p>Sensación térmica {Math.round(feels_like)}°C</p>
-        <p>{currentDate}</p>
+        <p>{date}</p>
         <p>{capitalizeFirstLetter(description)}</p>
       </div>
     </section>

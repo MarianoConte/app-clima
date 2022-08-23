@@ -1,5 +1,4 @@
-export const getFormattedDate = () => {
-  const date = new Date();
+export const getParsedDate = (date = new Date()) => {
   const day = getDayName(date);
   const hour = date.getHours();
   const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();

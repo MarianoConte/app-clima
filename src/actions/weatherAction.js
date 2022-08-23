@@ -1,6 +1,7 @@
 import {
   FORECAST_REQUESTED,
   LOCAL_CITY_REQUESTED,
+  SET_MAIN_WEATHER,
   WEATHER_REQUESTED,
 } from './types';
 
@@ -21,5 +22,12 @@ export const getForecast = (city) => {
   return {
     type: FORECAST_REQUESTED,
     payload: city,
+  };
+};
+
+export const setMainWeather = (weather) => {
+  return {
+    type: SET_MAIN_WEATHER,
+    payload: weather,
   };
 };
