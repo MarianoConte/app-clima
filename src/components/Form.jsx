@@ -25,10 +25,7 @@ const Form = () => {
 
   return (
     <form className='w-full pt-2 flex'>
-      <select
-        className='text-xl w-1/2 md:w-1/3 border rounded'
-        onChange={handleChange}
-      >
+      <select className='text-xl border rounded' onChange={handleChange}>
         {cities.map((city, index) => (
           <option key={city.city} value={index}>
             {city.city} {index === 0 ? '📌' : ''}

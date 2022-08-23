@@ -17,16 +17,17 @@ const Weather = ({ weather }) => {
 
   return (
     <div
-      className='flex justify-between p-2 font-bold text-lg hover:bg-sky-50 hover:cursor-pointer'
+      className='grid grid-cols-5 w-full p-2 text-lg hover:bg-sky-50 hover:cursor-pointer rounded '
       onClick={handleClick}
     >
-      <div className='flex justify-between w-full'>
-        <p>{day} </p>
-        <p> {humidity}%</p>
-        <img src={`/assets/icons/${icon}-cropped.svg`} className='h-8 w-8' />
-        <p>{Math.round(temp_max)}°</p>
-        <p>{Math.round(temp_min)}°</p>
-      </div>
+      <p className='text-left'>{day} </p>
+      <p className='text-center'> {humidity}%</p>
+      <img
+        src={`/assets/icons/${icon}-cropped.svg`}
+        className='h-8 w-8 m-auto'
+      />
+      <p className='text-center'>{Math.round(temp_max)}°</p>
+      <p className='text-center'>{Math.round(temp_min)}°</p>
     </div>
   );
 };
