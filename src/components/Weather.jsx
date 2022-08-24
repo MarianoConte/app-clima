@@ -5,7 +5,7 @@ import { setMainWeather } from '../actions/weatherAction';
 
 const Weather = ({ weather }) => {
   const { temp_min, temp_max, humidity } = weather.main;
-  const { icon } = weather.weather[0];
+  const { icon, description } = weather.weather[0];
   const date = new Date(weather.dt_txt.replace(/-/g, '/'));
   const day = getParsedDate(date);
 
@@ -29,12 +29,10 @@ const Weather = ({ weather }) => {
       onClick={handleClick}
     >
       <p className='text-center'>{day} </p>
-
       <p className='text-center'> {humidity}%</p>
-
       <img
         src={`/assets/icons/${icon}-cropped.svg`}
-        alt={icon}
+        alt={description}
         className='h-8 w-8 m-auto '
       />
       <p className='text-center'>{Math.round(temp_max)}°</p>

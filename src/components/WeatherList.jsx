@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Spinner from './Spinner';
 import Weather from './Weather';
 
-const WeatherForeCast = () => {
+const WeatherList = () => {
   const { weatherForecast, loadingForecast } = useSelector(
     (state) => state.weather
   );
@@ -32,4 +32,4 @@ const WeatherForeCast = () => {
   );
 };
 
-export default WeatherForeCast;
+export default WeatherList;

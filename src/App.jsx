@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getForecast, getLocalCity, getWeather } from './actions/weatherAction';
 import Error from './components/Error';
-import Form from './components/Form';
+import Select from './components/Select';
 import Header from './components/Header';
 import MainWeather from './components/MainWeather';
-import WeatherForeCast from './components/WeatherForecast';
+import WeatherList from './components/WeatherList';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,10 +27,10 @@ function App() {
     <div className='App'>
       <Header />
       <main className='p-5 md:w-1/2 md:m-auto'>
-        <Form />
+        <Select />
         <MainWeather />
         {error && <Error error={error} />}
-        <WeatherForeCast />
+        <WeatherList />
       </main>
     </div>
   );

@@ -21,7 +21,7 @@ const MainWeather = () => {
         <img
           className='h-16 w-16'
           src={`/assets/icons/${icon}-cropped.svg`}
-          alt='soleado'
+          alt={description}
         />
         <p className='text-6xl text-black mx-3'>
           {Math.round(temp)}

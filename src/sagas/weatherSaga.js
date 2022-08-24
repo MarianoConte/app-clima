@@ -50,11 +50,6 @@ function* getWeather(action) {
 function* getForecast(action) {
   const { lat, lon } = action.payload;
   try {
-    console.log(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${
-        import.meta.env.VITE_WEATHER_API_KEY
-      }`
-    );
     const { data } = yield call(
       axios.get,
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${

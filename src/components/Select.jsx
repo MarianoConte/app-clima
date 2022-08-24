@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getForecast, getWeather } from '../actions/weatherAction';
 
-const Form = () => {
+const Select = () => {
   const { localCity } = useSelector((state) => state.weather);
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ const Form = () => {
   };
 
   return (
-    <form className='w-full pt-2 flex'>
+    <div className='w-full pt-2 flex'>
       <select className='text-xl border rounded' onChange={handleChange}>
         {cities.map((city, index) => (
           <option key={city.city} value={index}>
@@ -32,8 +32,8 @@ const Form = () => {
           </option>
         ))}
       </select>
-    </form>
+    </div>
   );
 };
 
-export default Form;
+export default Select;
