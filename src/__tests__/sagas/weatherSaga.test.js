@@ -1,7 +1,8 @@
-import { getLocalCity, getWeather } from '../../sagas/weatherSaga';
+import { getForecast, getLocalCity, getWeather } from '../../sagas/weatherSaga';
 import { takeEvery, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 import weatherData from '../../__mocks__/weatherData';
+import forecastData from '../../__mocks__/forecastData';
 
 describe('weatherSaga', () => {
   test('should getLocalCity', () => {
@@ -90,6 +91,60 @@ describe('weatherSaga', () => {
     expect(generator.next(response).value.payload.action).toEqual({
       type: 'SET_ERROR',
       payload: 'Ocurrió un error al solicitar el clima actual de esa ciudad',
+    });
+
+    expect(generator.next()).toEqual({
+      done: true,
+      value: undefined,
+    });
+  });
+
+  test('should getForecast', () => {
+    const { lat, lon } = { lat: -57.541, lon: -37.9951 };
+    const action = { payload: { lat, lon } };
+
+    const generator = getForecast(action);
+    const response = forecastData;
+
+    expect(generator.next(response).value).toEqual(
+      call(
+        axios.get,
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${
+          import.meta.env.VITE_WEATHER_API_KEY
+        }`
+      )
+    );
+
+    expect(generator.next(response).value.payload.action).toEqual({
+      type: 'FORECAST_SUCCEEDED',
+      payload: response.data.list,
+    });
+
+    expect(generator.next()).toEqual({
+      done: true,
+      value: undefined,
+    });
+  });
+
+  test('should getForecast fails', () => {
+    const { lat, lon } = { lat: -57.541, lon: -37.9951 };
+    const action = { payload: { lat, lon } };
+
+    const generator = getForecast(action);
+    const response = {};
+
+    expect(generator.next(response).value).toEqual(
+      call(
+        axios.get,
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&lang=es&appid=${
+          import.meta.env.VITE_WEATHER_API_KEY
+        }`
+      )
+    );
+
+    expect(generator.next(response).value.payload.action).toEqual({
+      type: 'SET_ERROR',
+      payload: 'Ocurrió un error al solicitar el pronóstico del clima',
     });
 
     expect(generator.next()).toEqual({
