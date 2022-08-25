@@ -10,7 +10,7 @@ import {
 import { takeEvery, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* getLocalCity() {
+export function* getLocalCity() {
   try {
     const { data } = yield call(axios.get, 'http://ip-api.com/json');
     const { city, lat, lon } = data;
@@ -26,7 +26,7 @@ function* getLocalCity() {
   }
 }
 
-function* getWeather(action) {
+export function* getWeather(action) {
   const { lat, lon } = action.payload;
   try {
     const { data } = yield call(
@@ -35,9 +35,11 @@ function* getWeather(action) {
         import.meta.env.VITE_WEATHER_API_KEY
       }`
     );
+    const { weather, main, dt } = data;
+
     yield put({
       type: WEATHER_SUCCEEDED,
-      payload: data,
+      payload: { weather, main, dt },
     });
   } catch (error) {
     yield put({
@@ -47,7 +49,7 @@ function* getWeather(action) {
   }
 }
 
-function* getForecast(action) {
+export function* getForecast(action) {
   const { lat, lon } = action.payload;
   try {
     const { data } = yield call(
