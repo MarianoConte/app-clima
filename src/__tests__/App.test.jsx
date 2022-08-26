@@ -1,89 +1,47 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
-import * as redux from 'react-redux';
-import * as actions from '../actions/weatherAction';
 import '@testing-library/jest-dom/extend-expect';
-import createMockStore from 'redux-mock-store';
+import userEvent from '@testing-library/user-event';
+import store from '../store';
 import { Provider } from 'react-redux';
+import localCity from '../__mocks__/localCityData';
+import { act } from 'react-dom/test-utils';
+import {
+  FORECAST_SUCCEEDED,
+  LOCAL_CITY_SUCCEEDED,
+  WEATHER_SUCCEEDED,
+} from '../actions/types';
+import * as actions from '../actions/weatherAction';
+import weatherData from '../__mocks__/weatherData';
+import forecastData from '../__mocks__/forecastData';
 
-//jest.mock('react-redux', () => ({
-//  useSelector: jest.fn(),
-//  useDispatch: jest.fn(),
-//}));
-//
-//describe('<App/>', () => {
-//  beforeEach(() => {
-//    useDispatchMock.mockImplementation(() => () => {});
-//    useSelectorMock.mockImplementation((selector) => selector(mockStore));
-//  });
-//  afterEach(() => {
-//    useDispatchMock.mockClear();
-//    useSelectorMock.mockClear();
-//  });
-//
-//  const useSelectorMock = redux.useSelector;
-//  const useDispatchMock = redux.useDispatch;
-//
-//  const localCity = { city: 'Buenos Aires', lat: -34.6, lon: -58.4 }
-//
-//  const getLocalCity = jest.spyOn(actions, 'getLocalCity');
-//
-//  const mockStore = {
-//    weather: {
-//      localCity: {},
-//      mainWeather: {},
-//      weatherForecast: [],
-//      error: '',
-//      loadingWeather: true,
-//      loadingForecast: true,
-//    },
-//  };
-//  test('should render', () => {
-//    //app.debug();
-//    render(<App />);
-//    expect(screen.getByText('Clima app')).toBeInTheDocument();
-//    expect(screen.getByText('Cargando...')).toBeInTheDocument();
-//    //Test use effect
-//    expect(getLocalCity).toHaveBeenCalled();
-//    expect(getLocalCity).toHaveBeenCalledTimes(1);
-//
-//    useDispatchMock.mockReturnValue(getLocalCity())
-//
-//
-//  });
-//});
-
-const mockStore = createMockStore([]);
+const renderWithContext = (children) => {
+  render(<Provider store={store}>{children}</Provider>);
+  return { store };
+};
 
 describe('<App/>', () => {
-  test('should render app with loading', () => {
-    const state = {
-      weather: {
-        localCity: {},
-        mainWeather: {},
-        weatherForecast: [],
-        error: '',
-        loadingWeather: true,
-        loadingForecast: true,
-      },
-    };
-    const store = mockStore(state);
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
+  test('should render the common use of app', async () => {
+    const getLocalCity = jest.spyOn(actions, 'getLocalCity');
+    const getWeather = jest.spyOn(actions, 'getWeather');
+    const getForecast = jest.spyOn(actions, 'getForecast');
+
+    const { store } = renderWithContext(<App />);
     expect(screen.getByText('Clima app')).toBeInTheDocument();
     expect(screen.getByText('Cargando...')).toBeInTheDocument();
     expect(screen.getAllByTestId('spinner')).toHaveLength(2);
-    expect(store.getActions()).toEqual([{ type: 'LOCAL_CITY_REQUESTED' }]);
-  });
 
-  test('should render app', () => {
-    const state = {
+    expect(getLocalCity).toHaveBeenCalled();
+    expect(getLocalCity).toHaveBeenCalledTimes(1);
+    expect(getWeather).not.toHaveBeenCalled();
+
+    act(() =>
+      store.dispatch({ type: LOCAL_CITY_SUCCEEDED, payload: localCity })
+    );
+    let expected = {
       weather: {
-        localCity: { city: 'Buenos Aires', lat: -34.6, lon: -58.4 },
+        localCity: localCity,
         mainWeather: {},
         weatherForecast: [],
         error: '',
@@ -91,14 +49,18 @@ describe('<App/>', () => {
         loadingForecast: true,
       },
     };
-    const store = mockStore(state);
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
+
+    expect(expected).toEqual(store.getState());
     const select = screen.getByTestId('select');
     expect(select.children.length).toEqual(6);
-    expect(store.getActions());
+    expect(screen.getAllByTestId('spinner')).toHaveLength(2);
+
+    expect(getWeather).toHaveBeenCalled();
+    expect(getWeather).toHaveBeenCalledTimes(1);
+    expect(getForecast).toHaveBeenCalled();
+    expect(getForecast).toHaveBeenCalledTimes(1);
+    act(() =>
+      store.dispatch({ type: WEATHER_SUCCEEDED, payload: weatherData.data })
+    );
   });
 });

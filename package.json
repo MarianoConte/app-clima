@@ -5,6 +5,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:detectOpenHandles": "jest --detectOpenHandles",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "vite",
