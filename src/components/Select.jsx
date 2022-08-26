@@ -25,7 +25,11 @@ const Select = () => {
 
   return (
     <div className='w-full pt-2 flex'>
-      <select className='text-xl border rounded' onChange={handleChange}>
+      <select
+        data-testid='select'
+        className='text-xl border rounded'
+        onChange={handleChange}
+      >
         {cities.map((city, index) => (
           <option key={city.city} value={index}>
             {city.city} {index === 0 ? '📌' : ''}

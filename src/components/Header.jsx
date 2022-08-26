@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <header className='bg-sky-500 p-2'>
+    <header data-testid='header' className='bg-sky-500 p-2'>
       <div className='flex items-center md:px-40'>
         <img
           src='/assets/icons/03d-cropped.svg'

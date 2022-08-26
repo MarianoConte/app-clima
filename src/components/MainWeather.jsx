@@ -16,7 +16,10 @@ const MainWeather = () => {
     : getParsedDate();
 
   return (
-    <section className='flex justify-between align-middle'>
+    <section
+      data-testid='main-weather'
+      className='flex justify-between align-middle'
+    >
       <div className='flex items-center'>
         <img
           className='h-16 w-16'

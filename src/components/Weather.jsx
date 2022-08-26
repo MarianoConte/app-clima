@@ -21,6 +21,7 @@ const Weather = ({ weather }) => {
 
   return (
     <div
+      data-testid='weather'
       className={`grid grid-cols-5 w-full p-2 text-lg ${
         weather.dt === dt
           ? 'bg-sky-200'

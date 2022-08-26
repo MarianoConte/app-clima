@@ -9,7 +9,7 @@ const WeatherList = () => {
   );
 
   return (
-    <section className='bg-sky-100 mt-5 rounded-md'>
+    <section data-testid='weather-list' className='bg-sky-100 mt-5 rounded-md'>
       {loadingForecast ? (
         <Spinner />
       ) : (
