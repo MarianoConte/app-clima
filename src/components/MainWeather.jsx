@@ -8,9 +8,11 @@ const MainWeather = () => {
 
   if (loadingWeather) return <Spinner />;
 
+  //Extraigo datos del pronóstico local o seleccionado
   const { feels_like, temp, temp_min, temp_max, humidity } = mainWeather.main;
   const { description, icon } = mainWeather.weather[0];
 
+  //Parseo la fecha
   const date = mainWeather.dt_txt
     ? getParsedDate(new Date(mainWeather.dt_txt.replace(/-/g, '/')))
     : getParsedDate();

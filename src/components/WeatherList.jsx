@@ -4,6 +4,7 @@ import Spinner from './Spinner';
 import Weather from './Weather';
 
 const WeatherList = () => {
+  //Extraigo los pronósticos de la store
   const { weatherForecast, loadingForecast } = useSelector(
     (state) => state.weather
   );

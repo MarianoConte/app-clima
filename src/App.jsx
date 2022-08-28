@@ -10,19 +10,23 @@ import WeatherList from './components/WeatherList';
 function App() {
   const dispatch = useDispatch();
 
+  //Extraigo ciudad actual del usuario y errores de la store
   const { weather } = useSelector((state) => state);
   const { localCity, error } = weather;
 
+  //Obtengo la ciudad actual del usuario
   useEffect(() => {
     dispatch(getLocalCity());
   }, []);
 
+  //Obtengo el clima de la ciudad actual del usuario
   useEffect(() => {
     if (Object.keys(localCity).length) {
       dispatch(getWeather(localCity));
       dispatch(getForecast(localCity));
     }
   }, [localCity]);
+
   return (
     <div className='App'>
       <Header />

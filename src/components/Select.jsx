@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getForecast, getWeather } from '../actions/weatherAction';
 
 const Select = () => {
+  //Extraigo ciudad actual del usuario
   const { localCity } = useSelector((state) => state.weather);
   const dispatch = useDispatch();
 
   if (!Object.keys(localCity).length) return <div>Cargando...</div>;
 
+  //Ciudades disponibles para el pronóstico
   const cities = [
     localCity,
     { city: 'Lima', lat: -12.04, lon: -77.02 },
@@ -17,6 +19,7 @@ const Select = () => {
     { city: 'Bogotá', lat: 4.71, lon: -74.07 },
   ];
 
+  //Obtengo datos del clima al cambiar la opción del select
   const handleChange = (e) => {
     const city = cities[e.target.value];
     dispatch(getWeather(city));
