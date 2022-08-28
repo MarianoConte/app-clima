@@ -1,7 +1,7 @@
 import React from 'react';
+import Spinner from './Spinner';
 import { useSelector } from 'react-redux';
 import { capitalizeFirstLetter, getParsedDate } from '../utils';
-import Spinner from './Spinner';
 
 const MainWeather = () => {
   const { loadingWeather, mainWeather } = useSelector((state) => state.weather);
@@ -37,8 +37,9 @@ const MainWeather = () => {
           {Math.round(temp_max)}° / {Math.round(temp_min)}°
         </p>
         <p>Sensación térmica {Math.round(feels_like)}°C</p>
-        <p>{date}</p>
+        <p>Humedad {humidity}%</p>
         <p>{capitalizeFirstLetter(description)}</p>
+        <p>{date}</p>
       </div>
     </section>
   );

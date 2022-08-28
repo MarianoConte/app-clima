@@ -44,7 +44,6 @@ export default function (state = initialState, action) {
     case SET_ERROR:
       return {
         ...state,
-        loading: false,
         error: action.payload,
       };
     case FORECAST_REQUESTED:
