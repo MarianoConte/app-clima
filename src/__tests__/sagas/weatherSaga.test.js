@@ -1,5 +1,5 @@
 import { getForecast, getLocalCity, getWeather } from '../../sagas/weatherSaga';
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 import axios from 'axios';
 import weatherData from '../../__mocks__/weatherData';
 import forecastData from '../../__mocks__/forecastData';

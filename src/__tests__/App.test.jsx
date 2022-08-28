@@ -1,17 +1,8 @@
 import React from 'react';
-import { queryByTestId, render, screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import App from '../App';
 import '@testing-library/jest-dom/extend-expect';
-import userEvent from '@testing-library/user-event';
-import store from '../store';
-import { Provider } from 'react-redux';
 import localCity from '../__mocks__/localCityData';
-import { act } from 'react-dom/test-utils';
-import {
-  FORECAST_SUCCEEDED,
-  LOCAL_CITY_SUCCEEDED,
-  WEATHER_SUCCEEDED,
-} from '../actions/types';
 import * as actions from '../actions/weatherAction';
 import weatherData from '../__mocks__/weatherData';
 import forecastData from '../__mocks__/forecastData';

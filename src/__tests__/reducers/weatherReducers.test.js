@@ -11,7 +11,6 @@ import weatherReducer from '../../reducers/weatherReducer';
 import forecastData from '../../__mocks__/forecastData';
 import localCity from '../../__mocks__/localCityData';
 import weatherData from '../../__mocks__/weatherData';
-import weather from '../../__mocks__/weatherData';
 
 describe('weatherReducers', () => {
   const initialState = {
