@@ -69,7 +69,7 @@ Para correr el proyecto:
   npm run deploy
 ```
 
-El mismo se encuentra disponible en http://marianoconte.me
+El mismo se encuentra disponible en http://marianoconte.me (Controlar acceder por http y no por https ya que sino la api para obtener la localización por ip no funciona)
 
 ## 🔗 Links
 
