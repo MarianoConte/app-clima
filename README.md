@@ -2,7 +2,8 @@
 # Clima-app
 
 Webapp de clima creada por Mariano Conte en base al challenge de Personal Pay.
-
+La misma al entrar le dice al usuario el clima de localidad desde la que se accede y la de los 5 días siguientes. Al hacer click en los pronósticos de los días siguientes muestra la información más detalladamente.
+También se puede ver el clima de otras ciudades como Lima, Brasilia, Montevideo, Santiago de Chile o Bogotá.
 
 
 
